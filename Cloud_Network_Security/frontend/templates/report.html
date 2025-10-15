@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+    html,body{height:100%;background:#0b1221;color:#fff;}
+ 
+    /* Sidebar */
+    .sidebar{position:fixed;top:0;left:0;width:230px;height:100%;
+      background:#0d162a;padding:20px 0;display:flex;flex-direction:column;gap:12px;
+      border-right:1px solid rgba(255,255,255,0.1);box-shadow:3px 0 15px rgba(0,255,200,0.15);}
+    .sidebar h2{text-align:center;font-size:20px;margin-bottom:20px;color:#00ffc8;text-shadow:0 0 15px #00ffc8;}
+    .sidebar button{background:linear-gradient(145deg,#101b33,#0c1324);color:#bbb;border:none;
+      padding:14px 20px;text-align:left;cursor:pointer;border-radius:10px;font-size:15px;font-weight:500;
+      display:flex;align-items:center;gap:10px;transition:all 0.25s ease;
+      box-shadow:4px 4px 10px #050b16, -3px -3px 10px #16233f;}
+    .sidebar button i{font-size:18px;}
+    .sidebar button:hover{transform:translateY(-3px) scale(1.05);
+      background:linear-gradient(145deg,#0c1324,#101b33);color:#00ffc8;
+      box-shadow:0 0 20px rgba(0,255,200,0.5),inset 0 0 5px rgba(0,255,200,0.3);}
+    .sidebar button.active{background:#00ffc822;color:#00ffc8;box-shadow:0 0 20px rgba(0,255,200,0.6);}
+ 
+    /* Topbar */
+    .topbar{position:fixed;top:0;left:230px;right:0;height:60px;background:#0d162a;
+      display:flex;justify-content:space-between;align-items:center;padding:0 20px;
+      border-bottom:1px solid rgba(255,255,255,0.1);box-shadow:0 3px 15px rgba(0,255,200,0.15);z-index:10;}
+    .topbar .page-title{font-size:20px;font-weight:bold;color:#fff;}
+    .topbar .right-section{display:flex;align-items:center;gap:20px;}
+    .topbar .notification{position:relative;font-size:20px;cursor:pointer;color:#fff;}
+    .topbar .notification::after{content:"5";position:absolute;top:-6px;right:-10px;
+      background:#ff4d4d;color:#fff;font-size:12px;padding:2px 6px;border-radius:50%;
+      box-shadow:0 0 8px #ff4d4d;}
+    .user-dropdown{position:relative;}
+    .user-btn{background:linear-gradient(145deg,#00ffc8,#00d9a5);
+      color:#000;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:bold;
+      display:flex;align-items:center;gap:8px;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,255,200,0.5);}
+    .user-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 20px rgba(0,255,200,0.9);}
+    .user-btn span{background:#000;color:#00ffc8;width:22px;height:22px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;
+      box-shadow:inset 0 0 8px #00ffc8;}
+    .user-menu{display:none;position:absolute;right:0;background:#1a1a1a;border-radius:8px;margin-top:5px;min-width:120px;box-shadow:0 0 12px rgba(0,255,200,0.3);}
+    .user-menu a{display:block;padding:10px;color:#fff;text-decoration:none;font-size:14px;transition:0.2s;}
+    .user-menu a:hover{background:#00ffc8;color:#000;}
+ 
+    /* Main */
+    .main{margin-left:230px;margin-top:60px;padding:20px;min-height:calc(100vh - 60px);}
+    .main h2{margin-bottom:20px;font-size:1.4rem;color:#00ffc8;text-shadow:0 0 8px #00ffc8;}
+ 
+    /* Tables */
+    table{width:100%;border-collapse:collapse;background:#111a2e;border-radius:12px;overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,255,200,0.2);margin-bottom:30px;}
+    table th, table td{padding:14px 16px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1);}
+    table th{background:#0d162a;color:#00ffc8;font-weight:600;text-shadow:0 0 8px #00ffc8;}
+    table tr:hover{background:#1a243d;}
+    table td{color:#ddd;}
+    .btn{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:600;transition:0.2s ease;}
+    .btn.download{background:#00ffc8;color:#000;box-shadow:0 3px 10px rgba(0,255,200,0.5);}
+    .btn.download:hover{background:#00e6b2;transform:translateY(-2px);}
+    .btn.complete{background:#3b82f6;color:#fff;box-shadow:0 3px 10px rgba(59,130,246,0.5);}
+    .btn.complete:hover{background:#2563eb;transform:translateY(-2px);}
+    .btn.block{background:#ff4d4d;color:#fff;box-shadow:0 3px 10px rgba(255,77,77,0.5);}
+    .btn.resolve{background:#00ffc8;color:#000;box-shadow:0 3px 10px rgba(0,255,200,0.5);margin-left:5px;}
+ 
+    /* Charts */
+    .charts{display:flex;flex-wrap:wrap;gap:20px;}
+    .chart-container{flex:1;min-width:300px;height:300px;background:#111a2e;padding:15px;border-radius:12px;box-shadow:0 0 15px rgba(0,255,200,0.3);}
+    canvas{max-width:100%!important;}
+ 
+    /* Modal */
+    .modal {display: none; position: fixed; z-index: 50; left: 0; top: 0;width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7);}
+    .modal-content {background-color: #111a2e;margin: 10% auto;padding: 20px;border-radius: 10px;width: 400px;color: #fff;box-shadow: 0 0 20px #00ffc8;position: relative;}
+    .close {position: absolute; top: 10px; right: 15px;font-size: 25px;font-weight: bold;color: #00ffc8;cursor: pointer;}
+  </style>
+</head>
+<body>
+ 
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2><i class="fas fa-shield-alt"></i> SecureNet</h2>
+  <button onclick="window.location.href='dashboard.html'"><i class="fas fa-chart-pie"></i> Dashboard</button>
+  <button onclick="window.location.href='firewall.html'"><i class="fas fa-fire"></i> Firewall</button>
+  <button onclick="window.location.href='threats.html'"><i class="fas fa-bug"></i> Threats</button>
+  <button class="active"><i class="fas fa-file-alt"></i> Reports</button>
+</div>
+ 
+<!-- Topbar -->
+<div class="topbar">
+  <div class="page-title">Reports</div>
+  <div class="right-section">
+    <div class="notification"><i class="fas fa-bell"></i></div>
+    <div class="user-dropdown">
+      <button class="user-btn" onclick="toggleUserMenu()"><span>A</span> Admin ▼</button>
+      <div class="user-menu" id="userMenu">
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- Main -->
+<div class="main">
+  <h2>Security Reports</h2>
+  <table id="reportTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Report Name</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+ 
+  <h2>Analytics</h2>
+  <div class="charts">
+    <div class="chart-container"><canvas id="pieChart"></canvas></div>
+    <div class="chart-container"><canvas id="lineChart"></canvas></div>
+    <div class="chart-container"><canvas id="barChart"></canvas></div>
+  </div>
+ 
+  <h2>Suspicious IPs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>Failed Attempts</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>192.168.0.12</td>
+        <td>15</td>
+        <td class="ip-status">Active</td>
+        <td>
+          <button class="btn block" onclick="blockIP(this)">Block</button>
+          <button class="btn resolve" onclick="resolveIP(this)">Resolve</button>
+        </td>
+      </tr>
+      <tr>
+        <td>172.16.0.5</td>
+        <td>9</td>
+        <td class="ip-status">Active</td>
+        <td>
+          <button class="btn block" onclick="blockIP(this)">Block</button>
+          <button class="btn resolve" onclick="resolveIP(this)">Resolve</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- Modal -->
+<div id="modalContainer"></div>
+ 
+<script>
+function toggleUserMenu(){
+  const menu=document.getElementById('userMenu');
+  menu.style.display=menu.style.display==='block'?'none':'block';
+}
+ 
+// Report Data (mix of PDF & CSV)
+const reports = [
+  {id:'01',name:'Weekly Threat Report',date:'15 Sep 2025',status:'Completed',desc:'Weekly threat analysis including malware and phishing attempts.',file:"weekly_threat_report_100.csv"},
+  {id:'02',name:'Firewall Logs',date:'14 Sep 2025',status:'Completed',desc:'Detailed firewall logs showing blocked and allowed traffic.',file:"firewall_logs_100.csv" },
+  {id:'03',name:'System Audit',date:'12 Sep 2025',status:'Pending',desc:'Comprehensive system audit report showing vulnerabilities.',file:"system_audit_100.csv"}
+];
+ 
+// Populate Reports Table
+const tbody = document.querySelector('#reportTable tbody');
+reports.forEach(r=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${r.id}</td>
+    <td>${r.name}</td>
+    <td>${r.date}</td>
+    <td>${r.status}</td>
+    <td>
+      <button class="btn download" onclick="downloadReport('${r.file}')">Download</button>
+      <button class="btn complete" onclick="showDetails('${r.id}')">Details</button>
+    </td>
+  `;
+  tbody.appendChild(tr);
+});
+ 
+// Download (PDF or CSV)
+function downloadReport(file){
+  const link = document.createElement("a");
+  link.href = `/static/reports/${file}`;
+  link.download = file;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  showPopup("Downloaded Successfully!");
+}
+ 
+// Popup function
+function showPopup(message){
+  const modalContainer = document.getElementById('modalContainer');
+  modalContainer.innerHTML = `
+    <div class="modal" id="popupModal">
+      <div class="modal-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>${message}</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('popupModal').style.display = 'block';
+}
+ 
+function closePopup(){
+  document.getElementById('popupModal').style.display = 'none';
+}
+ 
+ 
+ 
+// Show Modal
+function showDetails(id){
+  const report = reports.find(r=>r.id===id);
+  const modalContainer = document.getElementById('modalContainer');
+  modalContainer.innerHTML = `
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>${report.name}</h3>
+        <p><strong>Date:</strong> ${report.date}</p>
+        <p><strong>Status:</strong> ${report.status}</p>
+        <p>${report.desc}</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('modal').style.display='block';
+}
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+}
+ 
+// Charts
+new Chart(document.getElementById('pieChart'), {
+  type: 'pie',
+  data: {labels:['Malware','Phishing','DDoS'],datasets:[{data:[12,7,5],backgroundColor:['#ff4d4d','#00ffc8','#3b82f6']}]},
+  options:{plugins:{legend:{labels:{color:'#fff'}}}}
+});
+new Chart(document.getElementById('lineChart'), {
+  type: 'line',
+  data: {labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Reports Generated',data:[5,7,6,8,4,5,6],borderColor:'#00ffc8',backgroundColor:'rgba(0,255,200,0.2)',tension:0.3}]},
+  options:{scales:{x:{ticks:{color:'#fff'}},y:{ticks:{color:'#fff'}}}}
+});
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {labels:['US-East','Europe','Asia'],datasets:[{label:'Reports',data:[8,6,4],backgroundColor:['#00ffc8','#3b82f6','#ff4d4d']}]},
+  options:{scales:{x:{ticks:{color:'#fff'}},y:{ticks:{color:'#fff'}}},plugins:{legend:{labels:{color:'#fff'}}}}
+});
+ 
+// Block & Resolve Functions
+function blockIP(btn){
+  const row = btn.closest('tr');
+  const statusCell = row.querySelector('.ip-status');
+  statusCell.textContent = 'Blocked';
+  statusCell.style.color = '#ff4d4d';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  btn.style.cursor = 'not-allowed';
+}
+ 
+function resolveIP(btn){
+  const row = btn.closest('tr');
+  const statusCell = row.querySelector('.ip-status');
+  statusCell.textContent = 'Active';
+  statusCell.style.color = '#00ffc8';
+  const blockBtn = row.querySelector('.btn.block');
+  blockBtn.disabled = false;
+  blockBtn.style.opacity = '1';
+  blockBtn.style.cursor = 'pointer';
+}
+</script>
+</body>
+</html>
+ 

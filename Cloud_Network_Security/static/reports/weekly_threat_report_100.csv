@@ -1,0 +1,101 @@
+Threat Type,Count,Severity,Action Taken
+DDoS,3,Medium,Users alerted + spam filters updated
+Suspicious IP Traffic,3,High,Firewall rules updated
+Ransomware,25,High,Users alerted + spam filters updated
+Malware,45,Medium,Malware signatures updated
+Ransomware,9,Low,System patches applied
+DDoS,39,Critical,Accounts flagged + password reset enforced
+Suspicious IP Traffic,10,High,Accounts flagged + password reset enforced
+Malware,27,Critical,Accounts flagged + password reset enforced
+Unauthorized Login,11,Medium,Firewall rules updated
+Ransomware,2,Low,Accounts flagged + password reset enforced
+Phishing,6,High,System patches applied
+DDoS,6,Critical,Firewall rules updated
+Suspicious IP Traffic,4,High,IPs blocked at firewall
+Malware,42,Critical,Malware signatures updated
+Ransomware,48,High,System patches applied
+Unauthorized Login,29,Critical,System patches applied
+Phishing,37,Low,Firewall rules updated
+Malware,12,High,Firewall rules updated
+Malware,12,Medium,IPs blocked at firewall
+DDoS,11,Medium,System patches applied
+Malware,43,Critical,Malware signatures updated
+Malware,16,Medium,Accounts flagged + password reset enforced
+Malware,38,Medium,Accounts flagged + password reset enforced
+Unauthorized Login,6,High,System patches applied
+DDoS,45,Medium,Users alerted + spam filters updated
+Ransomware,17,Critical,Malware signatures updated
+Ransomware,37,High,System patches applied
+Suspicious IP Traffic,13,Critical,IPs blocked at firewall
+Unauthorized Login,23,High,Firewall rules updated
+Unauthorized Login,18,High,Users alerted + spam filters updated
+Malware,18,Low,Firewall rules updated
+DDoS,18,Low,Accounts flagged + password reset enforced
+Ransomware,4,Critical,IPs blocked at firewall
+Ransomware,41,Low,Firewall rules updated
+Malware,38,Medium,Firewall rules updated
+Malware,26,Low,Users alerted + spam filters updated
+Suspicious IP Traffic,17,High,Users alerted + spam filters updated
+Ransomware,4,Critical,Users alerted + spam filters updated
+Malware,11,Critical,Firewall rules updated
+DDoS,9,High,Malware signatures updated
+Unauthorized Login,20,High,Firewall rules updated
+Phishing,5,Medium,Malware signatures updated
+DDoS,8,Medium,Firewall rules updated
+Suspicious IP Traffic,46,Low,Firewall rules updated
+Phishing,11,High,Firewall rules updated
+Ransomware,39,Low,IPs blocked at firewall
+Ransomware,48,Critical,Firewall rules updated
+Malware,16,Low,System patches applied
+Malware,4,Low,Users alerted + spam filters updated
+DDoS,37,Low,System patches applied
+Suspicious IP Traffic,5,Critical,System patches applied
+Malware,35,Critical,Accounts flagged + password reset enforced
+Ransomware,32,Medium,System patches applied
+Suspicious IP Traffic,44,High,IPs blocked at firewall
+Ransomware,48,Low,Users alerted + spam filters updated
+Suspicious IP Traffic,9,High,IPs blocked at firewall
+DDoS,48,Critical,Firewall rules updated
+Suspicious IP Traffic,23,Critical,Users alerted + spam filters updated
+Unauthorized Login,25,Low,Users alerted + spam filters updated
+Suspicious IP Traffic,46,Medium,System patches applied
+Ransomware,14,High,Firewall rules updated
+DDoS,28,High,Users alerted + spam filters updated
+DDoS,23,High,Firewall rules updated
+Malware,29,Medium,Users alerted + spam filters updated
+Ransomware,45,Medium,Firewall rules updated
+DDoS,39,Critical,System patches applied
+Phishing,23,Medium,IPs blocked at firewall
+Malware,8,High,System patches applied
+Malware,42,High,Users alerted + spam filters updated
+Phishing,38,Low,IPs blocked at firewall
+Malware,20,High,Firewall rules updated
+Malware,29,Medium,System patches applied
+Phishing,14,Low,System patches applied
+DDoS,33,Medium,IPs blocked at firewall
+Ransomware,37,Critical,Malware signatures updated
+Phishing,44,Low,IPs blocked at firewall
+Ransomware,12,Critical,Firewall rules updated
+Ransomware,1,High,Malware signatures updated
+Malware,11,Low,Firewall rules updated
+Suspicious IP Traffic,37,Critical,IPs blocked at firewall
+Ransomware,10,Low,IPs blocked at firewall
+Ransomware,24,High,IPs blocked at firewall
+DDoS,39,Medium,Accounts flagged + password reset enforced
+Unauthorized Login,22,High,Users alerted + spam filters updated
+Phishing,34,High,Accounts flagged + password reset enforced
+Ransomware,34,Low,IPs blocked at firewall
+Ransomware,43,Medium,IPs blocked at firewall
+Suspicious IP Traffic,31,Low,Malware signatures updated
+DDoS,45,Medium,IPs blocked at firewall
+Phishing,26,Low,Firewall rules updated
+Suspicious IP Traffic,27,High,IPs blocked at firewall
+DDoS,42,Low,Firewall rules updated
+Malware,37,Critical,System patches applied
+DDoS,32,Critical,System patches applied
+Ransomware,47,High,Malware signatures updated
+Suspicious IP Traffic,1,Critical,Malware signatures updated
+Unauthorized Login,22,High,Accounts flagged + password reset enforced
+Phishing,34,Critical,IPs blocked at firewall
+Suspicious IP Traffic,50,Critical,System patches applied
+Malware,30,Low,Users alerted + spam filters updated

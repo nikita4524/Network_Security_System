@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Threats</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+html,body{height:100%;background:#0b1221;color:#fff;}
+ 
+/* Sidebar */
+.sidebar{
+  position:fixed;top:0;left:0;
+  width:230px;height:100%;
+  background:#0d162a;
+  padding:20px 0;
+  display:flex;flex-direction:column;gap:12px;
+  border-right:1px solid rgba(255,255,255,0.1);
+  box-shadow:3px 0 15px rgba(0,255,200,0.15);
+}
+.sidebar h2{
+  text-align:center;font-size:20px;margin-bottom:20px;
+  color:#00ffc8;text-shadow:0 0 15px #00ffc8;
+}
+.sidebar button{
+  background:linear-gradient(145deg,#101b33,#0c1324);
+  color:#bbb;border:none;
+  padding:14px 20px;text-align:left;cursor:pointer;
+  border-radius:10px;font-size:15px;font-weight:500;
+  display:flex;align-items:center;gap:10px;
+  transition:all 0.25s ease;
+  box-shadow:4px 4px 10px #050b16, -3px -3px 10px #16233f;
+}
+.sidebar button i{font-size:18px;}
+.sidebar button:hover{
+  transform:translateY(-3px) scale(1.05);
+  background:linear-gradient(145deg,#0c1324,#101b33);
+  color:#00ffc8;
+  box-shadow:0 0 20px rgba(0,255,200,0.5),inset 0 0 5px rgba(0,255,200,0.3);
+}
+.sidebar button.active{
+  background:#00ffc822;
+  color:#00ffc8;
+  box-shadow:0 0 20px rgba(0,255,200,0.6);
+}
+ 
+/* Topbar */
+.topbar{
+  position:fixed;top:0;left:230px;right:0;
+  height:60px;background:#0d162a;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 3px 15px rgba(0,255,200,0.15);
+  z-index:10;
+}
+.topbar .page-title{font-size:20px;font-weight:bold;color:#fff;}
+.topbar .right-section{display:flex;align-items:center;gap:20px;}
+.topbar .notification{position:relative;font-size:20px;cursor:pointer;color:#fff;}
+.topbar .notification::after{
+  content:"3";
+  position:absolute;top:-6px;right:-10px;
+  background:#ff4d4d;color:#fff;font-size:12px;
+  padding:2px 6px;border-radius:50%;
+  box-shadow:0 0 8px #ff4d4d;
+}
+.user-dropdown{position:relative;}
+.user-btn{
+  background:linear-gradient(145deg,#00ffc8,#00d9a5);
+  color:#000;border:none;padding:6px 12px;
+  border-radius:8px;cursor:pointer;font-weight:bold;
+  display:flex;align-items:center;gap:8px;
+  transition:all 0.3s ease;
+  box-shadow:0 4px 12px rgba(0,255,200,0.5);
+}
+.user-btn:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 0 20px rgba(0,255,200,0.9);
+}
+.user-btn span{
+  background:#000;color:#00ffc8;
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold;font-size:12px;
+  box-shadow:inset 0 0 8px #00ffc8;
+}
+.user-menu{
+  display:none;position:absolute;right:0;
+  background:#1a1a1a;border-radius:8px;
+  margin-top:5px;min-width:120px;
+  box-shadow:0 0 12px rgba(0,255,200,0.3);
+}
+.user-menu a{
+  display:block;padding:10px;color:#fff;
+  text-decoration:none;font-size:14px;transition:0.2s;
+}
+.user-menu a:hover{background:#00ffc8;color:#000;}
+ 
+/* Main */
+.main{
+  margin-left:230px;margin-top:60px;padding:20px;
+  min-height:calc(100vh - 60px);
+}
+.main h2{
+  margin-bottom:20px;font-size:1.4rem;
+  color:#00ffc8;text-shadow:0 0 8px #00ffc8;
+}
+ 
+/* Threat Cards */
+.threat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;
+}
+.card{
+  background:#111a2e;
+  padding:20px;border-radius:14px;
+  box-shadow:inset -4px -4px 8px #0c1324,inset 4px 4px 8px #1c2b4d,0 0 15px rgba(0,255,200,0.2);
+  transition:all 0.3s ease-in-out;
+  position: relative;
+}
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 0 20px rgba(0,255,200,0.6);
+}
+.card h3{margin-bottom:10px;font-size:1.1rem;color:#00ffc8;}
+.card p{font-size:0.9rem;color:#bbb;margin-bottom:12px;}
+.card.resolved{
+  opacity: 0.6;
+  pointer-events: none;
+}
+.resolved-badge{
+  position:absolute;
+  top:10px;right:10px;
+  background:#00ff7f;
+  color:#000;
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:0.75rem;
+  font-weight:bold;
+  box-shadow:0 0 10px #00ff7f;
+}
+ 
+/* Buttons */
+.btn{
+  padding:8px 14px;border:none;border-radius:8px;
+  cursor:pointer;font-size:0.85rem;font-weight:600;
+  transition:0.2s ease;
+}
+.btn.resolve{
+  background:#00ffc8;color:#000;
+  box-shadow:0 3px 10px rgba(0,255,200,0.5);
+}
+.btn.resolve:hover{background:#00e6b2;transform:translateY(-2px);}
+.btn.details{
+  background:#3b82f6;color:white;
+  box-shadow:0 3px 10px rgba(59,130,246,0.5);
+  margin-left:6px;
+}
+.btn.details:hover{background:#2563eb;transform:translateY(-2px);}
+ 
+/* Modal CSS */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  background-color: #111a2e;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  color: #fff;
+  box-shadow: 0 0 20px #00ffc8;
+  position: relative;
+  animation: slideDown 0.3s ease;
+}
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #00ffc8;
+  cursor: pointer;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes slideDown { from{transform:translateY(-20px);} to{transform:translateY(0);} }
+</style>
+</head>
+<body>
+ 
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2><i class="fas fa-shield-alt"></i> SecureNet</h2>
+  <button onclick="window.location.href='dashboard.html'"><i class="fas fa-chart-pie"></i> Dashboard</button>
+  <button onclick="window.location.href='firewall.html'"><i class="fas fa-fire"></i> Firewall</button>
+  <button class="active"><i class="fas fa-bug"></i> Threats</button>
+  <button onclick="window.location.href='reports.html'"><i class="fas fa-file-alt"></i> Reports</button>
+</div>
+ 
+<!-- Topbar -->
+<div class="topbar">
+  <div class="page-title">Threats</div>
+  <div class="right-section">
+    <div class="notification"><i class="fas fa-bell"></i></div>
+    <div class="user-dropdown">
+      <button class="user-btn" onclick="toggleUserMenu()"><span>A</span> Admin ▼</button>
+      <div class="user-menu" id="userMenu">
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- Main -->
+<div class="main">
+  <h2>Detected Threats</h2>
+  <div class="threat-grid" id="threatGrid"></div>
+</div>
+ 
+<!-- Modal container -->
+<div id="modalContainer"></div>
+ 
+<script>
+function toggleUserMenu(){
+  const menu=document.getElementById('userMenu');
+  menu.style.display=menu.style.display==='block'?'none':'block';
+}
+ 
+// Threat data
+const threats = [
+  {
+    title: "Suspicious Login",
+    description: "Multiple failed login attempts detected from IP: 203.0.113.45",
+    resolve: "Lock the account, reset password, notify user, monitor further attempts.",
+    details: "IP: 203.0.113.45<br>Date: 28-Sep-2025<br>Failed attempts: 5"
+  },
+  {
+    title: "Malware Detected",
+    description: "Malware signature found in file upload at 192.168.1.22",
+    resolve: "Quarantine the file, scan system, update signatures, notify IT.",
+    details: "File: upload.exe<br>IP: 192.168.1.22<br>Malware type: Trojan"
+  },
+  {
+    title: "Unusual Traffic",
+    description: "Unusually high outbound traffic observed from 10.0.0.15",
+    resolve: "Check process generating traffic, block suspicious IPs, monitor logs.",
+    details: "IP: 10.0.0.15<br>Traffic: 5GB in 10 minutes<br>Possible source: Internal bot"
+  }
+];
+ 
+const threatGrid = document.getElementById('threatGrid');
+const modalContainer = document.getElementById('modalContainer');
+ 
+threats.forEach((threat, index) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card${index}`;
+  card.innerHTML = `
+    <h3>${threat.title}</h3>
+    <p>${threat.description}</p>
+    <button class="btn resolve" onclick="openModal('resolve${index}')">Resolve</button>
+    <button class="btn details" onclick="openModal('details${index}')">Details</button>
+  `;
+  threatGrid.appendChild(card);
+ 
+  // Resolve Modal
+  const resolveModal = document.createElement('div');
+  resolveModal.className = 'modal';
+  resolveModal.id = `resolve${index}`;
+  resolveModal.innerHTML = `
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('resolve${index}')">&times;</span>
+      <h3><i class="fas fa-check-circle"></i> Resolve ${threat.title}</h3>
+      <p>${threat.resolve}</p>
+      <button class="btn resolve" onclick="markResolved(${index})">Mark as Resolved</button>
+    </div>
+  `;
+  modalContainer.appendChild(resolveModal);
+ 
+  // Details Modal
+  const detailsModal = document.createElement('div');
+  detailsModal.className = 'modal';
+  detailsModal.id = `details${index}`;
+  detailsModal.innerHTML = `
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('details${index}')">&times;</span>
+      <h3><i class="fas fa-info-circle"></i> Details of ${threat.title}</h3>
+      <p>${threat.details}</p>
+    </div>
+  `;
+  modalContainer.appendChild(detailsModal);
+});
+ 
+// Modal functions
+function openModal(id){ document.getElementById(id).style.display = 'block'; }
+function closeModal(id){ document.getElementById(id).style.display = 'none'; }
+window.onclick = function(event) {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(modal=>{
+    if(event.target == modal){ modal.style.display = "none"; }
+  });
+}
+ 
+// Mark as resolved
+function markResolved(index){
+  const card = document.getElementById(`card${index}`);
+  card.classList.add('resolved');
+  const badge = document.createElement('div');
+  badge.className = 'resolved-badge';
+  badge.innerHTML = '<i class="fas fa-check"></i> Resolved';
+  card.appendChild(badge);
+  closeModal(`resolve${index}`);
+}
+</script>
+ 
+</body>
+</html>
+ 
+ 
