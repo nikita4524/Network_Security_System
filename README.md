@@ -65,6 +65,13 @@ View real-time logs, suspicious IPs, and traffic patterns on the dashboard
 
 **7. Screenshots**<br><br>
 
+<img width="1366" height="732" alt="Image" src="https://github.com/user-attachments/assets/e2895dac-4c44-4836-aafb-e81c282e2e0e" />
+<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/c296d3b7-a09c-4e2d-90a2-62bf5431d1e5" />
+<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/a9750dff-8d25-4371-b997-842c56fdc1ef" />
+<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/5eb717ff-27a0-46c8-9353-bc6b2e70e768" />
+<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/400cd7d5-2243-4d14-9d42-621b991971de" />
+
+<br><br>
 
 **8. Project Structure**<br><br>
 Cloud_Network_Security/<br><br>
