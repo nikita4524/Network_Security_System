@@ -1,55 +1,55 @@
-***Network Security System***
+***Network Security System***<br><br>
 
-**1. Project Title**
+**1. Project Title**<br><br>
 
 Network Security System
 
-**2. Description**
+**2. Description**<br><br>
 
 This project focuses on monitoring, analyzing, and securing network traffic using Flask and Python.
 It helps identify suspicious activities, analyze network datasets, and provides an intuitive interface for users to visualize and manage network data.
 The goal is to create an efficient system for threat detection, data protection, and secure network management.
 
-**3. Features**
+**3. Features**<br><br>
 
-User authentication (Login/Signup)
+User authentication (Login/Signup)<br><br>
 
- IP traffic monitoring
+ IP traffic monitoring<br><br>
 
-Dataset-based network traffic analysis
+Dataset-based network traffic analysis<br><br>
 
-Suspicious connection detection
+Suspicious connection detection<br><br>
 
-Interactive dashboard and visual reports
+Interactive dashboard and visual reports<br><br>
 
-Responsive and user-friendly interface
+Responsive and user-friendly interface<br><br>
 
-**4. Tech Stack / Tools Used**
+**4. Tech Stack / Tools Used**<br><br>
 
-Backend: Python, Flask
+Backend: Python, Flask<br><br>
 
-Frontend: HTML, CSS, Bootstrap
+Frontend: HTML, CSS, js<br><br>
 
-Data Analysis: NumPy
+Data Analysis: NumPy<br><br>
 
-Tools: Virtual Environment (venv), Command Line Interface
+Tools: Virtual Environment (venv), Command Line Interface<br><br>
 
-**5. Installation / Setup Instructions**
+**5. Installation / Setup Instructions**<br><br>
 
- Step 1: Go to the project folder
-cd C:\Users\janhvi\Downloads\Cloud_Network_Security
+ Step 1: Go to the project folder<br><br>
+cd C:\Users\janhvi\Downloads\Cloud_Network_Security<br><br>
 
- Step 2: Activate the virtual environment
-venv\Scripts\activate
+ Step 2: Activate the virtual environment<br><br>
+venv\Scripts\activate<br><br>
 
-Step 3: Install required dependencies
-pip install -r requirements.txt
+Step 3: Install required dependencies<br><br>
+pip install -r requirements.txt<br><br>
 
-Step 4: Run the Flask application
-python app.py
+Step 4: Run the Flask application<br><br>
+python app.py<br><br>
 
-Step 5: Open the application in your browser
-http://127.0.0.1:5050/
+Step 5: Open the application in your browser<br><br>
+http://127.0.0.1:5050/<br><br>
 
 **6. Usage**
 
@@ -63,37 +63,37 @@ Upload or analyze your network dataset
 
 View real-time logs, suspicious IPs, and traffic patterns on the dashboard
 
-**7. Screenshots**
+**7. Screenshots**<br><br>
 
 
-**8. Project Structure**
-Cloud_Network_Security/
+**8. Project Structure**<br><br>
+Cloud_Network_Security/<br><br>
 │
-├── app.py
-├── clean_app.py
-├── train_model.ipynb
-│
-├── templates/
-│   ├── login.html
-│   ├── Thread.html
-│   ├── dashboard.html
-│   └── Firewall.html
-│
-├── dataset/
-│   ├── network_traffic.csv
-│   ├── user_data.csv
-│   └── login_logs.csv
-│
-├── requirements.txt
-└── README.md
+├── app.py<br>
+├── clean_app.py<br>
+├── train_model.ipynb<br>
+│<br><br>
+├── templates/<br>
+│   ├── login.html<br>
+│   ├── Thread.html<br>
+│   ├── dashboard.html<br>
+│   └── Firewall.html<br>
+│<br><br>
+├── dataset/<br>
+│   ├── network_traffic.csv<br>
+│   ├── user_data.csv<br>
+│   └── login_logs.csv<br>
+│<br><br>
+├── requirements.txt<br>
+└── README.md<br>
 
-**9. Contributors / Team Members**
-Name	Role
-Janhvi Marathe	Backend Developer
-Nikita Patil	Frontend & Documentation
-Sejal Dorik	Data Analysis
+**9. Contributors / Team Members**<br>
+Name	Role<br>
+Janhvi Marathe : 	Backend Developer<br>
+Nikita Patil	: Frontend & Documentation<br>
+Sejal Dorik : 	Data Analysis<br>
 
-**10. Dataset and Analysis**
+**10. Dataset and Analysis**<br>
 
 The project uses a network traffic dataset to identify normal vs. suspicious activities within a network.
 The dataset includes:
